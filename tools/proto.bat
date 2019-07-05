@@ -1,0 +1,1 @@
+pbjs -t static-module -w commonjs -o ../serviceMongo/lib/proto.js *.proto

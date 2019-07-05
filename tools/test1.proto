@@ -1,0 +1,15 @@
+
+package PbLobby;
+
+syntax = "proto3";
+
+message VersionContent {
+    string game = 1;
+    string version = 2;
+}
+
+message User {
+    string message = 1;
+    bool status = 2;
+    VersionContent content = 3;
+}
