@@ -1,15 +1,48 @@
 
-package PbLobby;
+package Hongzao;
 
 syntax = "proto3";
 
-message VersionContent {
-    string game = 1;
-    string version = 2;
+// 引入外部的proto对象
+import "google/protobuf/any.proto";
+
+message BaseProtocol {
+
+    required string act = 1; // 请求动作类型
+    required int32 seq = 2; // 每个请求的sequence_id应该唯一
+    required int32 err = 3; // 错误代码，0为正常
+    required bool is_async = 4; // 是否需要等待服务器回调
+    required string ts = 5; // 时间
 }
 
-message User {
-    string message = 1;
-    bool status = 2;
-    VersionContent content = 3;
+message HeartBreak {
+    
+    required BaseProtocol base = 1; // 基础数据
+
+    required string username = 2; // 用户昵称
+}
+
+message PlatformDataModel {
+
+    required BaseProtocol base = 1; // 基础数据
+    int32 platform_id   = 2,            //平台id(属于哪家公司发行)
+    int32 channel_id    = 3,            //渠道id(发行公司的发行渠道)
+    int32 auth_type     = 4,
+    int32 regist_from   = 5,
+    int32 edition       = 6,
+    string version_id   = 7,
+    string mobile_id    = 8,
+    string account_name  = 9,
+    string password      = 10,
+    string token         = 11,
+    string unionId       = 12,
+    string refresh_token = 13,
+    int32 uid            = 14,
+    string location      = 15,
+    int32 userId        = 16,
+    int32 expire_time   = 17,
+    string platform_ip   = 18,
+    string platform_port = 19,
+    string login_ip      = 20,
+    string login_port    = 21
 }

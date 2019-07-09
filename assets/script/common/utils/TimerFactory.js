@@ -1,5 +1,10 @@
+/*
+ * @Author: Michael Zhang
+ * @Date: 2019-07-04 17:50:02
+ * @LastEditTime: 2019-07-09 11:28:14
+ */
 
-var TimerFactory = {
+let TimerFactory = {
     // create: function () {
     //     return {
     init: function (node) {
@@ -54,6 +59,5 @@ var TimerFactory = {
        // node.off("active-in-hierarchy-changed", timer.clear);
     },
 }
-//     }
 
-// }
+module.exports = TimerFactory

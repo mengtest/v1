@@ -1,41 +1,109 @@
-// Learn cc.Class:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
+/*
+ * @Author: Michael Zhang
+ * @Date: 2019-07-04 16:08:36
+ * @LastEditTime: 2019-07-09 18:10:16
+ */
 
-cc.Class({
-    extends: cc.Component,
+let CommonData = require('../dataModel/commonData')
 
-    properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
+let MediaManager = cc.Class({
+    
+    bgm : "",
+
+    isPlayedBGM: false, // 当前有没有播放过音乐
+
+    statics :{
+
+        instance: null,
+         
+        getInstance () {
+            if(this.instance == null) {
+                this.instance = new MediaManager();
+            }
+            return this.instance;
+        },
     },
 
-    // LIFE-CYCLE CALLBACKS:
+    playSound(soundName, loop, volume, callback){
+       
+        let path = CommonData.AUDIO_DIR + soundName;
+        cc.loader.loadRes(path, cc.AudioClip, function (err, clip) {
+            if(err)
+            {
+                cc.error(err);
+                return;
+            }
+            var audioID = cc.audioEngine.play(clip, loop?loop:false, volume?volume:1);
+            if( callback )
+                cc.audioEngine.setFinishCallback(audioID, callback);
 
-    // onLoad () {},
-
-    start () {
-
+		});
     },
 
-    // update (dt) {},
-});
+    stopAll()
+    {
+        cc.audioEngine.stopAll();
+    },
+
+    pauseAll()
+    {
+        cc.audioEngine.pauseAll();
+    },
+
+    resumeAll()
+    {
+        cc.audioEngine.resumeAll();
+    },
+
+    playBGM(soundName)
+    {
+        if(this.bgm == soundName)
+        {
+            return;
+        }
+        this.bgm = soundName;
+       
+        cc.audioEngine.stopMusic();
+        let path = CommonData.AUDIO_DIR + soundName;
+    
+        cc.loader.loadRes(path, cc.AudioClip, function (err, clip) {
+            if(err)
+            {
+                cc.error(err);
+                return;
+            }
+            this.isPlayedBGM = true;
+		    cc.audioEngine.playMusic(clip, true);
+		});
+    } ,
+    
+    resumeBGM() {
+
+        if( this.isPlayedBGM ) {
+            
+            cc.audioEngine.resumeMusic();
+        
+        } else {
+            
+            let path = CommonData.AUDIO_DIR + this.bgm;
+        
+            cc.loader.loadRes(path, cc.AudioClip, function (err, clip) {
+                if(err)
+                {
+                    cc.error(err);
+                    return;
+                }
+                this.isPlayedBGM = true;
+                cc.audioEngine.playMusic(clip, true);
+            });
+        }
+
+     
+    },
+
+    pauseBGM (){
+        cc.audioEngine.pauseMusic();
+    },
+
+    
+})

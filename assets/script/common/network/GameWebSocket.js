@@ -1,17 +1,10 @@
 /*
  * @Author: Michael Zhang
  * @Date: 2019-07-05 14:05:06
- * @LastEditTime: 2019-07-05 15:51:42
+ * @LastEditTime: 2019-07-09 16:58:22
  */
-/**
- * @enum {number}
- */
-var GameWebSocketState = cc.Enum({
-    CONNECTING: 1,
-    OPEN: 2,
-    CLOSING: 3,
-    CLOSED: 4
-});
+
+let Enums = require('../dataModel/enums')
 
 /**
  * @interface
@@ -100,14 +93,16 @@ var GameWebSocket = cc.Class({
 
     connect: function () {
         
-        cc.log('connect to '+ this._address);
-
         var ws = this._webSocket = new WebSocket(this._address);
+
         ws.onopen = this._delegate.onSocketOpen.bind(this._delegate);
+
         ws.onmessage = function (param) {
             this._delegate.onSocketMessage(param.data);
         }.bind(this);
+
         ws.onerror = this._delegate.onSocketError.bind(this._delegate);
+        
         ws.onclose = function (param) {
             this._delegate.onSocketClosed(param.reason);
         }.bind(this);
@@ -135,24 +130,26 @@ var GameWebSocket = cc.Class({
     },
 
     getState: function () {
+
         if (this._webSocket) {
+
             switch(this._webSocket.readyState){
+                
                 case WebSocket.OPEN:
-                    return GameWebSocketState.OPEN;
+                    return Enums.GameWebSocketState.OPEN;
                 case WebSocket.CONNECTING:
-                    return GameWebSocketState.CONNECTING;
+                    return Enums.GameWebSocketState.CONNECTING;
                 case WebSocket.CLOSING:
-                    return GameWebSocketState.CLOSING;
+                    return Enums.GameWebSocketState.CLOSING;
                 case WebSocket.CLOSED:
-                    return GameWebSocketState.CLOSED;
+                    return Enums.GameWebSocketState.CLOSED;
             }
         }
-        return GameWebSocketState.CLOSED;
+        return Enums.GameWebSocketState.CLOSED;
     }
 });
 
 module.exports = {
-    GameWebSocketState: GameWebSocketState,
     GameWebSocketDelegate: GameWebSocketDelegate,
     GameWebSocketInterface: GameWebSocketInterface,
     GameWebSocket: GameWebSocket

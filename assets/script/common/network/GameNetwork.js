@@ -1,20 +1,13 @@
 /*
  * @Author: Michael Zhang
  * @Date: 2019-07-05 14:05:55
- * @LastEditTime: 2019-07-05 14:41:14
+ * @LastEditTime: 2019-07-09 17:00:02
  */
 
 "use strict";
 
-let GameWebSocket = require("./GameWebSocket");
-let GameProtocols = require("./GameProtocols");
-
-/**
- * 服务器回复消息状态，判断回复消息的各种问题
- */
-var response_state = {
-    ERROR_OK : '0'
-};
+let GameWebSocket = require("./gameWebSocket")
+let Enums = require('../dataModel/enums')
 
 /**
  * 请求回调对象，收到服务器回调后的回调方法
@@ -93,7 +86,7 @@ let GameNetwork = cc.Class({
      * @returns {boolean}
      */
     isSocketOpened: function(){
-        return (this._socket && this._socket.getState() == GameWebSocket.GameWebSocketState.OPEN);
+        return (!!this._socket && this._socket.getState() == Enums.GameWebSocketState.OPEN);
     },
 
     isSocketClosed: function () {
@@ -104,7 +97,7 @@ let GameNetwork = cc.Class({
      * 启动连接
      */
     connect: function (url) {
-        cc.log("webSocketUrls=" + url);
+      
         this._requestSequenceId = 0;
         this._socket = new GameWebSocket.GameWebSocket();
         this._socket.init(url, this);
@@ -112,24 +105,29 @@ let GameNetwork = cc.Class({
     },
 
     closeConnect: function () {
+        
         if(this._socket){
             this._socket.close();
         }
     },
 
     onSocketOpen: function () {
-        cc.log('Socket:onOpen');
+        
+        cc.log( "onSocketOpen" )
         if(this._delegate && this._delegate.onNetworkOpen){
             this._delegate.onNetworkOpen();
         }
     },
 
     onSocketError: function () {
-        cc.log('Socket:onError');
+        cc.log( "onSocketError" )
+        if(this._delegate && this._delegate.onNetworkError){
+            this._delegate.onNetworkError();
+        }
     },
 
     onSocketClosed: function (reason) {
-        cc.log('Socket:onClose', reason);
+        cc.log( "onSocketClosed" )
         if (this._socket) {
             this._socket.close();
         }
@@ -141,56 +139,33 @@ let GameNetwork = cc.Class({
     },
 
     onSocketMessage: function (msg) {
+        cc.log( "onSocketMessage" )
         this._onResponse(msg);
     },
 
     _onResponse: function(responseData){
-        cc.log('response->resp:', responseData);
-        var responseJson = JSON.parse(responseData);
-        var responseClass = GameProtocols.response_classes[responseJson.act];
-        /**
-         * @type {object.<BaseResponse>}
-         */
-        var response = new responseClass();
-        response.loadData(responseJson.data);
-        response.act = responseJson.act;
-        response.seq = responseJson.seq;
-        response.err = responseJson.err;
-        response.ts = responseJson.ts;
 
+        var response = JSON.parse(responseData);
+        
         // 如果指定了回调函数，先回调
         var ignoreError = false;
-        if(response.seq != -1){
+        if(response.base.seq != -1){
+
             // 处理服务器推送消息
-            var pushCallback = this.pushResponseCallback[response.act];
+            var pushCallback = this.pushResponseCallback[response.base.act];
             if(pushCallback){
                 pushCallback(response);
             }
 
-            // request回调
-            var callbackObj = this._networkCallbacks[response.seq];
+            // request回调 请求回调
+            var callbackObj = this._networkCallbacks[response.base.seq];
             if(callbackObj){
                 ignoreError = callbackObj.callback(response);
-                // try {
-                //     ignoreError = callbackObj.callback(response);
-                // } catch (err) {
-                //     cc.log(err + " error in response callback of " + response.act);
-                // } finally {
-                //     delete this._networkCallbacks[response.seq];
-                // }
+                delete this._networkCallbacks[response.base.seq];
             }
         }
-
-        //有错，且不忽略，则统一处理错误
-        if(response.err && response.err != response_state.ERROR_OK && !ignoreError){
-            if (response.is_async) {  // 异步请求，如果出错了，应该需要重新登录
-                // todo 重新登录？或者重新同步数据？
-            } else {  // 同步请求，如果出错了，需要显示错误信息
-                // todo 显示错误
-                var msg = responseJson.msg;
-                cc.log('server err ' + msg);
-            }
-        }
+        
+        // 错误处理
     },
 
     /**
@@ -206,51 +181,29 @@ let GameNetwork = cc.Class({
      * @param {function(BaseResponse): boolean=} opt_callback 回调函数。出错的情况下，如果返回true，则不会再次处理错误。
      */
     sendRequest: function (request, opt_callback) {
+        
         // 每个请求的seq应该唯一，且递增
-        request.seq = ++this._requestSequenceId;
+        request.base.seq = ++this._requestSequenceId;
 
         //生成NetworkCallback对象，绑定请求seq和回调方法
         if(opt_callback){
-            this._networkCallbacks[request.seq] = new NetworkCallback();
-            this._networkCallbacks[request.seq].init(request, opt_callback);
+            this._networkCallbacks[request.base.seq] = new NetworkCallback();
+            this._networkCallbacks[request.base.seq].init(request, opt_callback);
         }
-        this._sendSocketRequest(false, request);
-    },
-
-    /**
-     * sendRequest的不发送data字段
-     */
-    sendRequestNoData: function (request, opt_callback) {
-        // 每个请求的seq应该唯一，且递增
-        request.seq = ++this._requestSequenceId;
-
-        //生成NetworkCallback对象，绑定请求seq和回调方法
-        if(opt_callback){
-            this._networkCallbacks[request.seq] = new NetworkCallback();
-            this._networkCallbacks[request.seq].init(request, opt_callback);
-        }
-        this._sendSocketRequest(true, request);
+        this._sendSocketRequest( request );
+      
     },
 
     /**
      * @param {Boolean} isNoData
      * @param {object.<BaseRequest>} req
      */
-    _sendSocketRequest: function (isNoData, req) {
-        cc.assert(this._socket);
-
+    _sendSocketRequest: function ( req ) {
+        
         if (this.isSocketOpened()){
+
             //通过json的方法生成请求字符串
-            var msg = null;
-            if(isNoData){
-                msg = JSON.stringify({seq:req.seq, act:req.act});
-            }else{
-                msg = JSON.stringify({seq:req.seq, act:req.act, data:req});
-            }
-            cc.log("WebSocketDelegate::send->" + msg);
-            this._socket.send(msg);
-        } else{
-            // todo
+            this._socket.send(JSON.stringify(req));
         }
     }
 });

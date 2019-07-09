@@ -1,41 +1,47 @@
-// Learn cc.Class:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
+/*
+ * @Author: Michael Zhang
+ * @Date: 2019-07-04 16:10:20
+ * @LastEditTime: 2019-07-09 18:07:48
+ */
 
-cc.Class({
-    extends: cc.Component,
+if( !CC_EDITOR ) {
 
-    properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
-    },
+    let httpData = cc.Class({
 
-    // LIFE-CYCLE CALLBACKS:
+        statics: {
+            
+            data: [
+                {"ID":1, "Host":"http://142.4.117.17:8000", "Route":"/user/code", "Params":"phone", "Method":"GET", "Remark":"获取验证码"}
+            ],
+        
+            getDataByID (id) {
+        
+                for (let index = 0; index < this.data.length; index++) {
+                    let element = this.data[index];
+                    if( element.ID == id ){
+                        return element;
+                    }
+                }
+                return null;
+            },
 
-    // onLoad () {},
+            sendHttp (id, data, handle, obj) {
+        
+        
+                let da = httpData.getDataByID(id);
+                
+                var url = da.Host;
+                var externUrl = da.Route;
+                var isPost = da.Method == "POST";
+                
+                // HTTPTool.sendRequest(url, externUrl, data, handle, isPost, obj)
+            }
+        }
+    })
+    
+    let net = require('../network/net');
+    let netObj = new net();
+    
+    module.exports = netObj;
+} 
 
-    start () {
-
-    },
-
-    // update (dt) {},
-});

@@ -1,7 +1,7 @@
 /*
  * @Author: Michael Zhang
  * @Date: 2019-07-04 15:43:43
- * @LastEditTime: 2019-07-04 15:47:20
+ * @LastEditTime: 2019-07-09 11:27:48
  */
 /**
 * jQuery MD5 hash algorithm function
@@ -164,7 +164,7 @@ var uTF8Encode = function (string)
     return output;
 };
 
-window.GMd5 = function (string)
+let GMd5 = function (string)
 {
     var x = Array();
     var k, AA, BB, CC, DD, a, b, c, d;
@@ -250,3 +250,5 @@ window.GMd5 = function (string)
     var tempValue = wordToHex(a) + wordToHex(b) + wordToHex(c) + wordToHex(d);
     return tempValue.toLowerCase();
 };
+
+module.exports = GMd5;

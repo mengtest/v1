@@ -1,7 +1,7 @@
 /*
  * @Author: Michael Zhang
  * @Date: 2019-07-04 15:49:58
- * @LastEditTime: 2019-07-09 17:21:07
+ * @LastEditTime: 2019-07-09 17:20:12
  */
 String.format = function(src){
     if (arguments.length == 0) return null;

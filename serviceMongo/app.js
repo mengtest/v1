@@ -1,7 +1,7 @@
 /*
  * @Author: Michael Zhang
  * @Date: 2019-05-06 15:37:12
- * @LastEditTime: 2019-07-05 11:54:57
+ * @LastEditTime: 2019-07-09 16:23:17
  */
 var createError = require('http-errors');
 var express = require('express');
@@ -37,7 +37,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/register',urlencodedParser, registerRouter);
-app.use('/login',urlencodedParser, loginRouter);
+app.use('/heartbreak',urlencodedParser, loginRouter);
 app.use('/version', versionRouter);
 app.use('/getCode', codeRouter);
 
