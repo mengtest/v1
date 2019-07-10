@@ -1,9 +1,8 @@
 /*
  * @Author: Michael Zhang
  * @Date: 2019-07-09 14:57:22
- * @LastEditTime: 2019-07-09 17:01:32
+ * @LastEditTime: 2019-07-10 15:38:47
  */
-
 'use strict'
 
 let proto = require('./common/dataModel/proto');
@@ -15,21 +14,31 @@ let CommonData = require('../dataModel/commonData')
 
 let net = cc.Class({
 
-    ctor () {
+    properties: {
 
-        this.netTool = null
-
-        if( this.isWebSocket() ) { // 使用websocket
+        netTool: {
             
-            this.netTool = new SocketTool()
-            this.netTool.init()
-            this.netTool.connect()
+            get (){
 
-        } else { // 使用HTTP
+                if( !this._netTool ) {
 
-            this.netTool  = HTTPTool;
+                    if( this.isWebSocket() ) { // 使用websocket
+            
+                        this._netTool = new SocketTool()
+                        this._netTool.init()
+                        this._netTool.connect()
+            
+                    } else { // 使用HTTP
+            
+                        this._netTool  = HTTPTool;
+                    }
+                }
+                return this._netTool;
+            },
+            set(value) {
+                this._netTool = value;
+            }
         }
-
     },
 
     /**

@@ -1,7 +1,7 @@
 /*
  * @Author: Michael Zhang
  * @Date: 2019-07-04 11:43:28
- * @LastEditTime: 2019-07-09 16:54:26
+ * @LastEditTime: 2019-07-10 16:46:52
  */
 // Learn cc.Class:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/class.html
@@ -15,14 +15,18 @@
 
 let eventMgr = require('./common/utils/eventCustom');
 let netMgr = require('./common/manager/networkManager')
+let GameStateMgr = require('./common/manager/gameStateManager')
+let UIManager = require('./common/manager/uiManager')
+
+let LoadingView = require('./views/LoadingView')
 
 cc.Class({
     extends: cc.Component,
 
     properties: {
-       
+        
     },
-
+    
     // LIFE-CYCLE CALLBACKS:,
 
     onLoad () {
@@ -30,10 +34,26 @@ cc.Class({
     },
 
     start () {
+        
+        UIManager.getInstance().openUI( LoadingView, 10, ()=>{
 
+            GameStateMgr.getInstance().initGame();
 
-        eventMgr.on("heartbreak", (params)=>{ cc.log(params) }, this.node)
+        } , (completedCount, totalCount, item)=>{
 
+        } ) 
+
+        this.schedule( ()=>{
+
+            netMgr.send("heartbreak", true, {username: "hongzap"}, (res)=>{
+                cc.log(res);
+            })
+                    
+        }, 5)
+        
+        eventMgr.on( "heartbreak", (res)=>{
+            cc.log(res);
+        })
     },
 
     

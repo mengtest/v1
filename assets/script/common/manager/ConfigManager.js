@@ -1,11 +1,19 @@
 /*
  * @Author: Michael Zhang
  * @Date: 2019-07-09 18:10:37
- * @LastEditTime: 2019-07-09 18:15:17
+ * @LastEditTime: 2019-07-10 11:45:57
  */
 
-let ConfigManager = cc.Class(
-{
+let ShopConfigContainer = require('../config/shopConfigContainer')
+
+let ConfigManager = cc.Class({
+
+    properties: {
+
+        configContainerList: [],
+        curLoadedCount : 0,
+    },
+
     statics:{
 
         instance: null,
@@ -19,12 +27,11 @@ let ConfigManager = cc.Class(
         },
     },
 
-    configContainerList: [],
-    curLoadedCount: 0,
+  
 
     loadAllConfig(callback) {
 
-        this.loadConfig(FishConfigContainer, this.callback, callback);
+        this.loadConfig(ShopConfigContainer, this.callback, callback);
     },
 
     getConfig(configClass) {
@@ -39,9 +46,10 @@ let ConfigManager = cc.Class(
         return null;
     },
 
-    loadConfig(configClass, callback, arg)
-    {
-        let config = new configClass(callback, this, arg);
+    loadConfig(configClass, callback, arg) {
+        
+        let config = new configClass();
+        config.init(callback, this, arg)
         config.tag = configClass;
         this.configContainerList.push(config);
     },
@@ -49,10 +57,8 @@ let ConfigManager = cc.Class(
     callback(callback) {
       
         this.curLoadedCount += 1;
-        if(this.configContainerList.length == this.curLoadedCount)
-        {
-            if(callback)
-            {
+        if(this.configContainerList.length == this.curLoadedCount) {
+            if(callback) {
                 callback();
             }
         }

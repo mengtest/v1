@@ -1,7 +1,7 @@
 /*
  * @Author: Michael Zhang
  * @Date: 2019-07-05 14:05:55
- * @LastEditTime: 2019-07-09 17:00:02
+ * @LastEditTime: 2019-07-10 15:32:05
  */
 
 "use strict";
@@ -68,6 +68,9 @@ let GameNetwork = cc.Class({
          * @private
          */
         this._networkCallbacks = {};
+
+        this._waitseqs = [];
+
     },
 
     setDelegate: function (delegate) {
@@ -117,6 +120,8 @@ let GameNetwork = cc.Class({
         if(this._delegate && this._delegate.onNetworkOpen){
             this._delegate.onNetworkOpen();
         }
+
+        this.recoverWait();
     },
 
     onSocketError: function () {
@@ -204,6 +209,27 @@ let GameNetwork = cc.Class({
 
             //通过json的方法生成请求字符串
             this._socket.send(JSON.stringify(req));
+
+        } else {
+
+            this.addToWaitList( req );
+        }
+    },
+
+    // 添加到请求等待列表
+    addToWaitList: function( req ) {
+
+        this._waitseqs.push( req );
+    },
+
+    recoverWait: function() {
+
+        if( this._waitseqs.length > 0 ) {
+            for (let index = 0; index < this._waitseqs.length; index++) {
+                let element = this._waitseqs[index];
+                this._sendSocketRequest(element);
+            }
+            this._waitseqs = [];
         }
     }
 });

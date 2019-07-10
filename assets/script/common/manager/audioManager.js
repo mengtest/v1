@@ -1,16 +1,19 @@
 /*
  * @Author: Michael Zhang
  * @Date: 2019-07-04 16:08:36
- * @LastEditTime: 2019-07-09 18:10:16
+ * @LastEditTime: 2019-07-10 11:06:47
  */
 
 let CommonData = require('../dataModel/commonData')
 
-let MediaManager = cc.Class({
+let AudioManager = cc.Class({
     
-    bgm : "",
+    properties : {
 
-    isPlayedBGM: false, // 当前有没有播放过音乐
+        bgm : "",
+
+        isPlayedBGM : false, // 当前有没有播放过音乐
+    },
 
     statics :{
 
@@ -18,7 +21,7 @@ let MediaManager = cc.Class({
          
         getInstance () {
             if(this.instance == null) {
-                this.instance = new MediaManager();
+                this.instance = new AudioManager();
             }
             return this.instance;
         },
