@@ -1,7 +1,7 @@
 /*
  * @Author: Michael Zhang
  * @Date: 2019-07-04 16:10:20
- * @LastEditTime: 2019-07-10 15:38:46
+ * @LastEditTime: 2019-07-11 16:05:20
  */
 
 let net = require('../network/net');
@@ -11,7 +11,16 @@ let httpData = cc.Class({
     extends: net,
 
     statics: {
-        
+
+        instance: null,
+
+        getInstance () {
+            if( !this.instance ){
+                this.instance = new httpData();
+            }
+            return this.instance;
+        },
+
         data: [
             {"ID":1, "Host":"http://142.4.117.17:8000", "Route":"/user/code", "Params":"phone", "Method":"GET", "Remark":"获取验证码"}
         ],
@@ -43,5 +52,5 @@ let httpData = cc.Class({
 
 
 
-module.exports = new httpData();
+module.exports = httpData;
 

@@ -1,7 +1,7 @@
 /*
  * @Author: Michael Zhang
  * @Date: 2019-07-04 16:10:43
- * @LastEditTime: 2019-07-10 18:19:33
+ * @LastEditTime: 2019-07-11 16:54:13
  */
 
 let UIManager = cc.Class({
@@ -180,17 +180,13 @@ let UIManager = cc.Class({
 
         this.openPop( uiClass, 10, ()=>{
 
-            cc.log( UIManager.getInstance() )
-  
         }, (completedCount, totalCount, item)=>{
 
-        }, this.getUI( baseUIClass ).node );
+        },baseUIClass );
     },
 
     closePopView ( uiClass ){
 
-        cc.log( uiClass )
-        
         if( this.popViewList.has( uiClass.tag.className ) ){
 
             let arr = this.popViewList.get( uiClass.tag.className )
@@ -201,7 +197,7 @@ let UIManager = cc.Class({
                 
                 if( element.uuid == uiClass.node.uuid ) {
 
-                    element.removeFromParent( true );
+                    element.destroy( true );
                     arr.splice(index, 1)
                     break
                 }
@@ -209,7 +205,6 @@ let UIManager = cc.Class({
             if( arr.length == 0 ){
                 this.popViewList.delete( uiClass.tag.className )
             }
-            cc.log( UIManager.getInstance() )
         }
         
     }  

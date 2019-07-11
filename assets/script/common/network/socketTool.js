@@ -1,7 +1,7 @@
 /*
  * @Author: Michael Zhang
  * @Date: 2019-07-05 14:07:37
- * @LastEditTime: 2019-07-09 16:26:35
+ * @LastEditTime: 2019-07-11 17:18:55
  */
 
 "use strict";
@@ -42,15 +42,15 @@ let NetProxy = cc.Class({
     },
 
     onNetworkOpen: function () {
-        eventMgr.emit("onNetworkOpen")
+        eventMgr.getInstance().emit("onNetworkOpen")
     },
 
     onNetworkClose: function () {
-        eventMgr.emit("onNetworkClose")
+        eventMgr.getInstance().emit("onNetworkClose")
     },
 
     onNetworkError: function () {
-        eventMgr.emit("onNetworkError")
+        eventMgr.getInstance().emit("onNetworkError")
     },
 
     /**
@@ -87,7 +87,7 @@ let NetProxy = cc.Class({
    
     pushChat: function (resp) {
         
-        eventMgr.emit('heartbreak', resp);
+        eventMgr.getInstance().emit('heartbreak', resp);
     },
 
 });

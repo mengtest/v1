@@ -1,14 +1,29 @@
 /*
  * @Author: Michael Zhang
  * @Date: 2019-07-05 17:59:46
- * @LastEditTime: 2019-07-09 11:26:59
+ * @LastEditTime: 2019-07-11 15:59:23
  */
 
-let EventCustom = {
+let EventCustom = cc.Class({
 
-    index: 0,
-    functions : {},
+    properties: {
+        index: 0,
+        functions : null,
+    },
+    ctor () {
+        this.functions = {};
+    },
+    statics: {
 
+        instance: null,
+        getInstance () {
+            if( !this.instance ){
+                this.instance = new EventCustom();
+            }
+            return this.instance;
+        }
+    },
+    
     on(name, callback, node) {
         if (typeof this.functions[name] == "undefined") {
             this.functions[name] = {};
@@ -92,6 +107,7 @@ let EventCustom = {
 
         delete this.functions[name];
     }
-}
+})
+
 
 module.exports = EventCustom;

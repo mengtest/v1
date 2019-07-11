@@ -1,11 +1,12 @@
 /*
  * @Author: Michael Zhang
  * @Date: 2019-07-10 16:35:14
- * @LastEditTime: 2019-07-10 18:09:44
+ * @LastEditTime: 2019-07-11 17:21:31
  */
 let BaseView = require('./BaseView');
 let UIManager = require('../common/manager/uiManager')
-let pop1 = require('./pop1')
+let popView = require('./popView')
+let eventMgr = require('./common/utils/eventCustom');
 
 let LabbyView = cc.Class({
 
@@ -31,7 +32,7 @@ let LabbyView = cc.Class({
 
     pop () {
 
-        UIManager.getInstance().showPopView( pop1, LabbyView )
+        UIManager.getInstance().showPopView( popView, this.node )
 
     }
 

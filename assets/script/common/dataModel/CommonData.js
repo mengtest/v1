@@ -1,7 +1,7 @@
 /*
  * @Author: Michael Zhang
  * @Date: 2019-07-04 16:05:19
- * @LastEditTime: 2019-07-10 16:20:07
+ * @LastEditTime: 2019-07-11 13:45:02
  */
 
 let Enums = require('./enums')
@@ -13,6 +13,7 @@ let CommonData = cc.Class({
         AUDIO_DIR: "audio/",
         CONFIG_FILE_DIR: "config/",
         PREFAB_UI_DIR: "prefab/",
+        TEXTURE_DIR: "texture/",
 
         GAME_SERVER_TYPE: Enums.SERVER_TYPE.WEBSOCKET,
         GAME_SERVER_IP: "127.0.0.1",

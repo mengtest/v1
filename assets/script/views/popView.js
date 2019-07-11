@@ -1,15 +1,15 @@
 /*
  * @Author: Michael Zhang
  * @Date: 2019-07-10 17:28:35
- * @LastEditTime: 2019-07-10 18:02:13
+ * @LastEditTime: 2019-07-11 16:50:57
  */
 
 let BasePop = require('./BasePop')
 
-let pop1 = cc.Class({
+let popView = cc.Class({
     extends: BasePop,
     statics: {
-        className : "pop1"
+        className : "popView"
     },
     properties: {
         // foo: {
@@ -42,4 +42,4 @@ let pop1 = cc.Class({
 
 });
 
-module.exports = pop1
+module.exports = popView
