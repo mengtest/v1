@@ -1,7 +1,7 @@
 /*
  * @Author: Michael Zhang
  * @Date: 2019-07-10 16:03:32
- * @LastEditTime: 2019-07-11 17:19:46
+ * @LastEditTime: 2019-07-12 10:18:39
  */
 
 let BaseView = require('./BaseView');
@@ -47,8 +47,6 @@ let LoginView = cc.Class({
         this.heartbreakindex = eventMgr.getInstance().on( "heartbreak", (res)=>{
             cc.log(res);
         })
-
-        cc.log(  eventMgr.getInstance() )
 
     },
 

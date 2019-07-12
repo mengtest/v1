@@ -1,7 +1,7 @@
 /*
  * @Author: Michael Zhang
  * @Date: 2019-07-04 11:43:28
- * @LastEditTime: 2019-07-11 16:00:42
+ * @LastEditTime: 2019-07-12 10:26:00
  */
 // Learn cc.Class:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/class.html
@@ -15,7 +15,7 @@
 
 let GameStateMgr = require('./common/manager/gameStateManager')
 let UIManager = require('./common/manager/uiManager')
-
+let AudioMgr = require('./common/manager/audioManager')
 let LoginView = require('./views/LoginView')
 
 cc.Class({
@@ -32,13 +32,17 @@ cc.Class({
     },
 
     start () {
-        
-        UIManager.getInstance().openUI( LoginView, 10, ()=>{
 
-            GameStateMgr.getInstance().initGame();
+        AudioMgr.getInstance().playSound("fish_vocie13.mp3", false, 0.4, ()=>{
 
-        } , (completedCount, totalCount, item)=>{ }) 
+            UIManager.getInstance().openUI( LoginView, 10, ()=>{
 
+                GameStateMgr.getInstance().initGame();
+    
+            } , (completedCount, totalCount, item)=>{ }) 
+            
+        })
+    
     },
 
     

@@ -1,7 +1,7 @@
 /*
  * @Author: Michael Zhang
  * @Date: 2019-07-04 16:08:52
- * @LastEditTime: 2019-07-11 14:30:30
+ * @LastEditTime: 2019-07-12 10:13:22
  */
 let ResManager = cc.Class({
 
@@ -122,6 +122,19 @@ let ResManager = cc.Class({
         this.loadRes( resPath, ( spriteFrame)=>{
             callback( spriteFrame );
         }, cc.SpriteFrame)
+
+    },
+
+    /**
+     * 加载音频
+     * @param {*} resPath 资源路径
+     * @param {*} callback 加载成功回调
+     */
+    loadAudioClip ( resPath, callback ) {
+
+        this.loadRes( resPath, ( audioClip)=>{
+            callback( audioClip );
+        }, cc.AudioClip)
 
     },
 
