@@ -1,7 +1,7 @@
 /*
  * @Author: Michael Zhang
  * @Date: 2019-07-10 16:35:14
- * @LastEditTime: 2019-07-12 10:15:03
+ * @LastEditTime: 2019-07-12 17:24:31
  */
 let BaseView = require('./BaseView');
 let UIManager = require('../common/manager/uiManager')
@@ -37,6 +37,7 @@ let LabbyView = cc.Class({
             cc.log( this.good )
 
         }).bind(this), cc.AudioClip)
+
     },
 
     // update (dt) {},
@@ -49,3 +50,22 @@ let LabbyView = cc.Class({
 
 
 });
+
+// Editor.assetdb.create( 'db://assets/resources/config/auto.json', 21313, function ( err, results ) {
+//     results.forEach(function ( result ) {
+//         // result.uuid
+//         // result.parentUuid
+//         // result.url
+//         // result.path
+//         // result.type
+//     });
+// });
+
+// Editor.assetdb.delete( [ 'db://assets/bar.json' ], function ( err, results ) {
+//   results.forEach(function ( result ) {
+//     // result.srcPath
+//     // result.destPath
+//     // result.uuid
+//     // result.parentUuid
+//   });
+// });

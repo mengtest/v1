@@ -1,7 +1,7 @@
 /*
  * @Author: Michael Zhang
  * @Date: 2019-07-04 11:43:28
- * @LastEditTime: 2019-07-12 10:26:00
+ * @LastEditTime: 2019-07-18 16:09:16
  */
 // Learn cc.Class:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/class.html
@@ -22,6 +22,11 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+
+        node1: {
+            default: null,
+            type: cc.Node,
+        }
         
     },
     
@@ -29,19 +34,22 @@ cc.Class({
 
     onLoad () {
 
+        // cc.log(  this.node1.getBoundingBox() )
+
+        // cc.log( this.node1.getContentSize(), this.node1.width, this.node1.height )
     },
 
     start () {
 
-        AudioMgr.getInstance().playSound("fish_vocie13.mp3", false, 0.4, ()=>{
+        // AudioMgr.getInstance().playSound("fish_vocie13.mp3", false, 0.4, ()=>{
 
-            UIManager.getInstance().openUI( LoginView, 10, ()=>{
+        //     UIManager.getInstance().openUI( LoginView, 10, ()=>{
 
-                GameStateMgr.getInstance().initGame();
+        //         GameStateMgr.getInstance().initGame();
     
-            } , (completedCount, totalCount, item)=>{ }) 
+        //     } , (completedCount, totalCount, item)=>{ }) 
             
-        })
+        // })
     
     },
 
