@@ -1,0 +1,12 @@
+CREATE PROCEDURE `sp_emailsys_delete`(IN `_idx` BIGINT(20))
+    COMMENT '删除已读邮件'
+BEGIN
+	declare __now int default unix_timestamp();
+	if _idx > 0 then
+		delete from t_emailsys where idx = _idx;
+		delete from t_emailflag where idx = _idx;
+	else
+		delete from t_emailsys where __now > deletetime;
+		delete from t_emailflag where __now > deletetime;
+	end if;
+END

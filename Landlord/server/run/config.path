@@ -1,0 +1,25 @@
+root = "./"
+luaservice = root .. "service/?.lua;" ..root.."skynet/service/?.lua;"..root.."skynet/test/?.lua;"..root.."skynet/examples/?.lua;"..root.."skynet/test/?/init.lua"
+lualoader = root .. "skynet/lualib/loader.lua"
+lua_path = root .. "lualib/?.lua;"  .. root .. "lualib/?/init.lua;".. root .. "skynet/lualib/?.lua;".. root .. "skynet/lualib/?/init.lua;"
+lua_cpath = root .. "luaclib/?.so;" .. root .. "skynet/luaclib/?.so"
+cpath = root .. "cservice/?.so;"..root.."skynet/cservice/?.so"
+
+harbor = 0
+debugportfile="$OUTPORT"
+
+setting_host = "$SETTING_HOST"
+logpath = "$LOGPATH"
+daemon = "$DAEMON"
+logger = "$LOGGER"
+loggersize = 1024*1024*50
+
+svr_type = "$SVR_TYPE"
+svr_id = $SVR_ID
+
+if daemon=="" then
+	daemon=nil
+end
+if logger=="" then
+	logger=nil
+end

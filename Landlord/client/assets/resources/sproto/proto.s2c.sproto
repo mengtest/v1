@@ -1,0 +1,262 @@
+.package {
+	type 0 : integer
+	session 1 : integer
+	ud 2 : string
+}
+
+#----------------------------------登陆游戏------------------------------
+
+verify 1 {
+	request {
+		token 0 : string
+	}
+}
+
+kickout 2 {
+	request {
+
+	}
+}
+
+#----------------------------------进入游戏------------------------------
+# 单独错误消息
+error_info 10 {
+	request {
+		id 0 : integer
+		txt 1 : string
+	}
+}
+
+.game_info {
+	gameid 0 : string		#游戏id
+	roomid 1 : integer		#房间id(有就填)
+	deskid 2 : integer		#桌子id(有就填)
+	deskpos 3 : integer		#位子id(有就填)
+}
+
+# 玩家对象
+player_obj 11 {
+	request {
+		rid 0 : integer              #唯一id
+		rname 1 : string            #名字
+		icon 2 : integer            #头像图标
+		gold 3 : integer			#游戏货币
+		now 4 : integer				#当前时间
+		game 5 : game_info			#游戏信息
+		modify 6 : integer			#保险箱修改密码次数
+		safe 7 : integer			#险箱修金额
+	}
+}
+
+# 进入游戏成功
+game_entered 12 {
+	request {
+		status 0 : integer		#1=正常进入，0=断线重连
+		gameid 1 : string		#游戏id
+		roomid 2 : integer		#房间id
+		deskid 3 : integer		#桌子id
+	}
+}
+
+# 断线数据恢复
+game_revert 13 {
+	request {
+
+	}
+}
+
+.goldinfo {
+	rid 0 : integer
+	gold 1 : integer
+}
+
+#玩家金币刷新
+player_gold 14 {
+	request {
+		info 0 : *goldinfo
+	}
+}
+
+#游戏表情
+game_emote 15 {
+	request {
+		rid  0 : integer		# 玩家id
+		emote 1 : integer		# 表情id
+		tid 2 : integer			# 目标id
+	}
+}
+
+#----------------------------------保险箱 20-29 ----------------------
+.savelog{
+	rid 0 : integer				# 角色id
+	rname 1 : string			# 角色名
+	amount 2 : integer			# 数量
+	ti 3 : integer				# 时间搓
+}
+
+safe_info 20 {
+	request {
+		gold 0 : integer		# 金额
+		transfer 1 : *savelog	# 赠送日志
+		receive 2 : *savelog	# 获赠日志
+	}
+}
+
+#-----------------------------邮件 80-89 begin-----------------------
+.email_info {
+	id 0 : integer				# 邮件id
+	sender 1 : string			# 发送者
+	theme 2 : string			# 标题
+	content 3 : string			# 内容
+	gold 4 : integer			# 附件金币
+	flag 5 : integer			# 读取标记(0：新邮件,1：已读,2: 附件已领取)
+	createtime 6 : integer		# 创建时间
+}
+
+# 玩家邮件列表
+player_email_list 80 {
+	request {
+		list 0 : *email_info
+	}
+}
+
+# 增加邮件
+player_email_add 81 {
+	request {
+		info 0 : email_info
+	}
+}
+
+# 邮件更新
+player_email_update 82 {
+	request {
+		ids 0 : *integer			# 邮件id列表
+		flag 1 : integer			# 标记 1=已读，2=已领取(包含已读)
+	}
+}
+
+# 邮件删除
+player_email_del 83 {
+	request {
+		ids 0 : *integer			# 邮件id列表
+	}
+}
+
+#-----------------------------邮件 end-----------------------
+
+#-----------------------------斗地主-----------------------
+# 所有玩家信息
+.ddz_player {
+	rid 0 : integer             #唯一id
+	rname 1 : string            #名字
+	icon 2 : integer            #头像图标
+	gold 3 : integer			#游戏货币
+	pos 4 : integer				#deskpos座位
+}
+
+# 玩家列表
+ddz_players 200 {
+	request {
+		players 0 : *ddz_player
+	}
+}
+
+# 游戏状态
+ddz_status 201 {
+	request {
+		status 0 : integer		#状态:
+		left 1 : integer		#剩余数据(毫秒)
+		mask 2 : integer		#那几个pos的用户需要操作 0为所有人，(mask>>1)&1==1为deskpos1，(mask>>2)&1==1为deskpos2，etc.
+	}
+}
+
+.ddz_poker {
+	rid 0 : integer
+	hand 1 : *integer		#扑克数据 按花色和面值有序排列，1-13为♣️梅花， 14-26为♦️方片，27-39为♥️红桃，40-52为♠️黑桃，53和54特殊牌，表示大小王(kCard_Joker1, kCard_Joker2)
+	landlord 2 : integer	#是否为地主底牌 1为地主底牌，nil为一般玩家牌
+}
+
+# 发牌 / 重连后使用该消息同步自己已亮的牌信息 / 结算亮牌（仅弃牌玩家不亮牌）
+ddz_poker 202 {
+	request {
+		list 0 : *ddz_poker
+	}
+}
+
+.ddz_info {
+	rid 0 : integer
+	call 1 : integer #0-1 叫地主信息使用
+	grab 2 : integer #0-1 抢地主使用
+	multiple 3 : integer #0-2 0不加倍 1加倍 2超级加倍	加倍信息使用
+	cards 4 : *integer	#出牌信息使用
+}
+
+# 叫地主信息
+ddz_call_info 203 {
+	request {
+		ddz_info 0 : *ddz_info
+	}
+}
+
+# 抢地主信息
+ddz_grab_info 204 {
+	request {
+		ddz_info 0 : *ddz_info
+	}
+}
+
+# 加倍信息
+ddz_multiple_info 205 {
+	request {
+		ddz_info 0 : *ddz_info
+	}
+}
+
+# 出牌信息
+ddz_throw_info 206 {
+	request {
+		ddz_info 0 : *ddz_info
+	}
+}
+
+.ddz_multiple {
+	bomb 0 : integer		#炸弹倍数
+    call 1 : integer		#抢地主倍数
+	multiple 2 : integer	#农民加倍倍数
+	spring 3 : integer		#春天倍数 春天反春仅存其一
+	antisprint 4 : integer	#反春倍数
+}
+
+.ddz_win_info {
+	rid 0 : integer             #唯一id
+	rname 1 : string            #名字
+	betbase 2 : integer			#底分
+	multiple 3 : ddz_multiple	#倍数 需要客户端自己相乘
+	gold 4 : integer			#输赢金币数	输的值为负
+}
+
+# 结算结果
+ddz_win 207 {
+	request {
+		ddz_win_info 0 : *ddz_win_info
+	}
+}
+
+.ddz_record_left {
+	value 0 : integer	#3-K为3-13，14为A，15为2，16大王，17小王
+	left 1 : integer	#剩余张数
+}
+
+# 记牌器 每次全推送，场内所有剩余
+ddz_record_left 208 {
+	request {
+		record_left 0 : *ddz_record_left
+	}
+}
+
+# 更新炸弹倍数
+ddz_bomb_info 209 {
+	request {
+		bomb 0 : integer #总的炸弹倍数
+	}
+}

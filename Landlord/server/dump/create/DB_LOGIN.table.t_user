@@ -1,0 +1,13 @@
+CREATE TABLE `t_user` (
+  `uid` int(11) NOT NULL AUTO_INCREMENT,
+  `platid` varchar(50) NOT NULL DEFAULT '',
+  `imei` varchar(50) NOT NULL DEFAULT '',
+  `uname` varchar(50) NOT NULL DEFAULT '',
+  `upwd` varchar(50) NOT NULL DEFAULT '',
+  `create` int(11) NOT NULL DEFAULT '0',
+  `last` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`uid`),
+  KEY `imei` (`imei`) USING HASH,
+  KEY `platid` (`platid`) USING HASH,
+  KEY `uname` (`uname`) USING HASH
+) ENGINE=InnoDB DEFAULT CHARSET=utf8

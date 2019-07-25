@@ -1,0 +1,13 @@
+sp_create_player
+sp_emailflag_select
+sp_emailsys_delete
+sp_emailsys_insert
+sp_emailsys_select
+sp_email_delete
+sp_email_deletemax
+sp_email_deletes
+sp_email_insert
+sp_email_read
+sp_email_reward
+sp_email_selectall
+sp_redeem_code

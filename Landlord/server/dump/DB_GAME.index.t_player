@@ -1,0 +1,4 @@
+table='t_player'	non_unique='0'	key_name='PRIMARY'	seq_in_index='1'	column_name='rid'	collation='A'	null=''	index_type='BTREE'	comment=''
+table='t_player'	non_unique='1'	key_name='rname'	seq_in_index='1'	column_name='rname'	collation='A'	null=''	index_type='BTREE'	comment=''
+table='t_player'	non_unique='1'	key_name='uid'	seq_in_index='1'	column_name='uid'	collation='A'	null=''	index_type='BTREE'	comment=''
+table='t_player'	non_unique='1'	key_name='sid'	seq_in_index='1'	column_name='sid'	collation='A'	null=''	index_type='BTREE'	comment=''

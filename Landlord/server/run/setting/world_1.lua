@@ -1,0 +1,43 @@
+{
+"svr_id":1,
+"clusternode":"world_1",
+"addr":"192.168.1.66",
+"svr_type":"world",
+"cluster":"192.168.1.66:10012",
+"debugport":"10011",
+"db":{
+	"DB_GAME":{
+		"count":5,
+		"opt":{
+			"database":"project_game_1",
+			"port":3306,
+			"ping":10,
+			"user":"root",
+			"max_packet_size":10485760,
+			"compact_arrays":true,
+			"host":"127.0.0.1",
+			"password":"Project0303!",
+			"charset":"utf8"
+		}
+	},
+	"DB_LOG":{
+		"count":5,
+		"opt":{
+			"database":"project_gamelog_1",
+			"port":3306,
+			"ping":10,
+			"user":"root",
+			"max_packet_size":10485760,
+			"compact_arrays":true,
+			"host":"127.0.0.1",
+			"password":"Project0303!",
+			"charset":"utf8"
+		}
+	}
+},
+"auth":{
+	"listen_ip":"0.0.0.0",
+	"listen_port":10010,
+	"maxclient":10240
+}
+}

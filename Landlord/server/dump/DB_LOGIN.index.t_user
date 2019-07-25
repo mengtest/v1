@@ -1,0 +1,4 @@
+table='t_user'	non_unique='0'	key_name='PRIMARY'	seq_in_index='1'	column_name='uid'	collation='A'	null=''	index_type='BTREE'	comment=''
+table='t_user'	non_unique='1'	key_name='platid'	seq_in_index='1'	column_name='platid'	collation='A'	null=''	index_type='BTREE'	comment=''
+table='t_user'	non_unique='1'	key_name='imei'	seq_in_index='1'	column_name='imei'	collation='A'	null=''	index_type='BTREE'	comment=''
+table='t_user'	non_unique='1'	key_name='uname'	seq_in_index='1'	column_name='uname'	collation='A'	null=''	index_type='BTREE'	comment=''

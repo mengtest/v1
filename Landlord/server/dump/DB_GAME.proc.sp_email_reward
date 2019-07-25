@@ -1,0 +1,10 @@
+CREATE PROCEDURE `sp_email_reward`(IN `_receiveid` BIGINT(20),IN `_id` BIGINT(20))
+    COMMENT '领取附件'
+BEGIN
+	update t_email set flag = 2 where id = _id and receiveid = _receiveid and flag <> 2 and gold > 0;
+	if row_count() > 0 then
+		select 0, gold from t_email where id = _id;
+	else
+		select 1;
+	end if;
+END

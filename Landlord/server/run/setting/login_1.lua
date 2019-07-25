@@ -1,0 +1,31 @@
+{
+"svr_id":1,
+"clusternode":"login_1",
+"addr":"192.168.1.66",
+"svr_type":"login",
+"cluster":"192.168.1.66:10002",
+"debugport":"10001",
+"db":{
+	"DB_LOGIN":{
+		"count":5,
+		"opt":{
+			"database":"project_login_1",
+			"port":3306,
+			"ping":10,
+			"user":"root",
+			"max_packet_size":10485760,
+			"compact_arrays":true,
+			"host":"127.0.0.1",
+			"password":"Project0303!",
+			"charset":"utf8"
+		}
+	}
+},
+"auth":{
+	"auth_cnt":10,
+	"listen_ip":"0.0.0.0",
+	"listen_port":10000,
+	"game_ip":"192.168.1.77",
+	"game_port":5223
+}
+}

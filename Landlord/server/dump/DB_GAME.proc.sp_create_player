@@ -1,0 +1,19 @@
+CREATE PROCEDURE `sp_create_player`(IN `_head`  BIGINT(20),IN `_uid` VARCHAR(50), IN `_sid` INT, IN `_rname` varchar(50), IN `_icon` INT(11), IN `_gold` INT(11), IN `_createtime` INT(11))
+begin
+	declare _rid  BIGINT(20);
+	declare _count int default 0;
+	if exists ( select 1 from t_player where rname=_rname )then
+		#角色名已存在
+		select 1;
+	else
+		select count(rid) into _count from t_player where uid=_uid and sid=_sid;
+		if(_count>=1)then
+			#角色数量已达上限
+			select 2;
+		ELSE
+			set _rid = _head+_count+1;
+			insert into t_player(rid,rname,sid,uid,icon,gold,`create`) values(_rid,_rname,_sid,_uid,_icon,_gold,_createtime);
+			select 0,_rid;
+		end if;
+	end if;
+end

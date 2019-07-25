@@ -1,0 +1,61 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "laizi",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 2,
+  "sample": 30,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "paths": {
+      "jd_05": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                -31.417,
+                20.656,
+                0
+              ]
+            },
+            {
+              "frame": 0.5,
+              "value": [
+                -31.417,
+                30.303,
+                0
+              ]
+            },
+            {
+              "frame": 1,
+              "value": [
+                -29.398,
+                35.424,
+                0
+              ]
+            },
+            {
+              "frame": 1.5,
+              "value": [
+                -34.516,
+                27.688,
+                0
+              ]
+            },
+            {
+              "frame": 2,
+              "value": [
+                -31.417,
+                20.656,
+                0
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

@@ -1,0 +1,5 @@
+CREATE PROCEDURE `sp_email_deleteread`(IN `_receiveid` BIGINT(20))
+    COMMENT '删除已读邮件'
+BEGIN
+	delete from t_email where receiveid=_receiveid and flag > 0 and gold=0;
+END

@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>frames</key>
+		<dict>
+			<key>image/lang01.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{4,111},{222,75}}</string>
+				<key>offset</key>
+				<string>{-1,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{298,116}</string>
+			</dict>
+			<key>image/lang02.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{270,101},{224,78}}</string>
+				<key>offset</key>
+				<string>{-2,1}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{298,116}</string>
+			</dict>
+			<key>image/lang03.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{561,4},{271,88}}</string>
+				<key>offset</key>
+				<string>{2,-7}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{298,116}</string>
+			</dict>
+			<key>image/lang04.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{561,100},{246,82}}</string>
+				<key>offset</key>
+				<string>{-2,-1}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{298,116}</string>
+			</dict>
+			<key>image/lang05.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{270,4},{283,89}}</string>
+				<key>offset</key>
+				<string>{-1,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{298,116}</string>
+			</dict>
+			<key>image/lang06.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{4,4},{258,99}}</string>
+				<key>offset</key>
+				<string>{9,2}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{298,116}</string>
+			</dict>
+			<key>image/lang07.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{937,4},{264,82}}</string>
+				<key>offset</key>
+				<string>{12,2}</string>
+				<key>rotated</key>
+				<true />
+				<key>sourceSize</key>
+				<string>{298,116}</string>
+			</dict>
+			<key>image/lang08.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{840,4},{246,89}}</string>
+				<key>offset</key>
+				<string>{15,3}</string>
+				<key>rotated</key>
+				<true />
+				<key>sourceSize</key>
+				<string>{298,116}</string>
+			</dict>
+		</dict>
+		<key>metadata</key>
+		<dict>
+			<key>format</key>
+			<integer>2</integer>
+			<key>textureFileName</key>
+			<string>langEffPlist.png</string>
+			<key>realTextureFileName</key>
+			<string>langEffPlist.png</string>
+			<key>size</key>
+			<string>{1023,272}</string>
+		</dict>
+		<key>texture</key>
+		<dict>
+			<key>width</key>
+			<integer>1023</integer>
+			<key>height</key>
+			<integer>272</integer>
+		</dict>
+	</dict>
+</plist>

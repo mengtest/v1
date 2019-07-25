@@ -1,0 +1,7 @@
+{
+  "ver": "1.0.0",
+  "uuid": "2156a20f-f87b-46f4-9841-bc545874f62a",
+  "atlasJson": "{\"width\":512,\"imagePath\":\"dizhuTree2_tex.png\",\"name\":\"dizhuTree2\",\"SubTexture\":[{\"width\":404,\"y\":1,\"height\":179,\"name\":\"dt_22\",\"x\":1}],\"height\":256}",
+  "texture": "64781186-02fb-43f0-b180-0ea5f6fd9baf",
+  "subMetas": {}
+}

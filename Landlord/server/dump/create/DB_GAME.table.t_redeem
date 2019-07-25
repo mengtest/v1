@@ -1,0 +1,10 @@
+CREATE TABLE `t_redeem` (
+  `code` varchar(50) NOT NULL,
+  `name` varchar(20) NOT NULL DEFAULT '',
+  `only` int(11) NOT NULL DEFAULT '0',
+  `gold` bigint(20) NOT NULL DEFAULT '0',
+  `create` int(11) NOT NULL DEFAULT '0',
+  `flag` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`code`),
+  KEY `name` (`name`) USING HASH
+) ENGINE=InnoDB DEFAULT CHARSET=utf8

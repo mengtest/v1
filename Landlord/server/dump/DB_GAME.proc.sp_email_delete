@@ -1,0 +1,5 @@
+CREATE PROCEDURE `sp_email_delete`(IN `_receiveid` BIGINT(20),IN `_id` BIGINT(20))
+    COMMENT '删除指定邮件'
+BEGIN
+	delete from t_email where id = _id;
+END

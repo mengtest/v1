@@ -1,0 +1,16 @@
+CREATE TABLE `t_player` (
+  `rid` bigint(20) NOT NULL,
+  `rname` varchar(50) NOT NULL,
+  `uid` varchar(50) NOT NULL,
+  `sid` int(11) NOT NULL DEFAULT '0',
+  `icon` int(11) NOT NULL,
+  `gold` bigint(20) NOT NULL DEFAULT '0',
+  `safe` bigint(20) NOT NULL DEFAULT '0',
+  `create` int(11) NOT NULL,
+  `last` int(11) DEFAULT '0' COMMENT '最近登录时间',
+  `logout` int(11) DEFAULT '0' COMMENT '上次登出时间',
+  PRIMARY KEY (`rid`),
+  KEY `rname` (`rname`) USING HASH,
+  KEY `uid` (`uid`) USING HASH,
+  KEY `sid` (`sid`) USING HASH
+) ENGINE=InnoDB DEFAULT CHARSET=utf8

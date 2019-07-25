@@ -1,0 +1,6 @@
+CREATE PROCEDURE `sp_emailsys_select`()
+    COMMENT '查找所有邮件'
+BEGIN
+	call sp_emailsys_delete(0);
+	select idx,theme,content,gold,createtime,deletetime,type,args from t_emailsys;
+END

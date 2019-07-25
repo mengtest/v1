@@ -1,0 +1,9 @@
+CREATE TABLE `t_player` (
+  `rid` bigint(20) NOT NULL,
+  `rname` varchar(50) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `sid` int(11) NOT NULL,
+  `last` int(11) NOT NULL,
+  PRIMARY KEY (`rid`),
+  KEY `rname` (`rname`) USING HASH
+) ENGINE=InnoDB DEFAULT CHARSET=utf8

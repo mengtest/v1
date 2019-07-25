@@ -1,0 +1,12 @@
+CREATE TABLE `t_emailsys` (
+  `idx` int(11) NOT NULL AUTO_INCREMENT,
+  `theme` varchar(64) DEFAULT '',
+  `content` varchar(1024) DEFAULT '',
+  `gold` bigint(20) DEFAULT '0',
+  `createtime` int(11) NOT NULL DEFAULT '0',
+  `deletetime` int(11) NOT NULL DEFAULT '0',
+  `type` int(11) DEFAULT '0',
+  `args` varchar(1024) DEFAULT '',
+  PRIMARY KEY (`idx`),
+  KEY `deletetime` (`deletetime`) USING HASH
+) ENGINE=InnoDB DEFAULT CHARSET=utf8

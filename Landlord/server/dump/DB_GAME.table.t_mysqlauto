@@ -1,0 +1,1 @@
+field='name'	type='varchar(50)'	collation='utf8_general_ci'	null='NO'	key='PRI'	default=''	extra=''	comment=''	the_index='1'

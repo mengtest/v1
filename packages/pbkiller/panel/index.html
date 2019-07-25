@@ -1,0 +1,18 @@
+<div>
+    <h2>pbjs</h2>
+    <ui-prop name="proto src:">
+        <div class="flex-1 layout horizontal center">
+            <ui-input class="flex-1" readonly :value="protoPath"></ui-input>
+            <ui-button @confirm="selectProtoPath">...</ui-button>
+        </div>
+    </ui-prop>
+
+    <ui-prop name="save to js path:">
+        <div class="flex-1 layout horizontal center">
+            <ui-input class="flex-1" readonly :value="jsPath"></ui-input>
+            <ui-button @confirm="selectSavePath">...</ui-button>
+        </div>
+    </ui-prop>
+    
+    <ui-button @confirm="convertProtoToJs">ok</ui-button>
+</div>

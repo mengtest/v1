@@ -1,0 +1,27 @@
+{
+  "name": "pbkiller",
+  "version": "1.2.0",
+  "description": "The package is protobufjs tool for CocosCreator",
+  "author": "ShawnZhang",
+  "main": "main.js",
+  "main-menu": {
+    "i18n:MAIN_MENU.package.title/pbkiller/install-src": {
+      "message": "pbkiller:install-src"
+    },
+
+    "i18n:MAIN_MENU.package.title/pbkiller/install-lite": {
+      "message": "pbkiller:install-lite"
+    },
+
+    "i18n:MAIN_MENU.package.title/pbkiller/pbjs": {
+      "message": "pbkiller:pbjs"
+    }
+  },
+  "panel": {
+    "main": "panel/index.js",
+    "type": "dockable",
+    "title": "pbjs",
+    "width": 400,
+    "height": 300
+  }
+}

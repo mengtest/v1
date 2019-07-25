@@ -1,0 +1,16 @@
+CREATE TABLE `t_email` (
+  `id` bigint(20) NOT NULL,
+  `idx` int(11) DEFAULT '0',
+  `receiveid` bigint(20) NOT NULL DEFAULT '0',
+  `theme` varchar(64) DEFAULT '',
+  `content` varchar(1024) DEFAULT '',
+  `gold` bigint(20) DEFAULT '0',
+  `flag` int(11) DEFAULT '0',
+  `createtime` int(11) NOT NULL,
+  `deletetime` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `receiveid` (`receiveid`) USING HASH,
+  KEY `createtime` (`createtime`) USING HASH,
+  KEY `deletetime` (`deletetime`) USING HASH,
+  KEY `idx` (`idx`) USING HASH
+) ENGINE=InnoDB DEFAULT CHARSET=utf8

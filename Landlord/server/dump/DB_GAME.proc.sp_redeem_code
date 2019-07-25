@@ -1,0 +1,17 @@
+CREATE PROCEDURE `sp_redeem_code`(IN `_code` VARCHAR(50))
+    COMMENT '兑换码'
+BEGIN
+	declare _flag int(11) default 0;
+	declare _gold int(11) default 0;
+	select flag,gold into _flag,_gold from t_redeem where code = _code;
+	if row_count() = 0 then
+		select 1;
+	else
+		if _flag > 0 then
+			select 2;
+		else
+			update t_redeem set flag = unix_timestamp() where code = _code;
+			select 0, _gold;
+		end if;
+	end if;
+END

@@ -1,0 +1,31 @@
+CREATE PROCEDURE `sp_email_rewards`(IN `_receiveid` BIGINT(20))
+    COMMENT '领取所有附件'
+BEGIN
+	declare done boolean default true;
+	declare _allgold bigint default 0;
+	declare _gold bigint default 0;
+	declare _allids text default "";
+	declare _id bigint default 0;
+	declare cur cursor for select id,gold from t_email where receiveid = _receiveid and flag <> 2 and gold > 0;
+	declare continue handler for not found set done = false;
+	open cur;
+		while done do
+			fetch cur into _id,_gold;
+			if done then
+				update t_email set flag = 2 where id = _id;
+				set _allgold = _allgold + _gold
+
+				if _allids = "" then
+					set _allids = _id;
+				else
+					set _allids = concat(_allids,",",_id);
+				end if;
+			end if;
+		end while;
+	close cur;
+	if _allgold = 0 then
+		select 1;
+	else
+		select 0,_allids,_allgold;
+	end if;
+END

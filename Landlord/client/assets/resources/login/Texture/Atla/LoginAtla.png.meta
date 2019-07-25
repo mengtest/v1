@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.0",
+  "uuid": "9b89376f-1d37-48ca-9a77-c9a84cd4f67e",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "LoginAtla": {
+      "ver": "1.0.4",
+      "uuid": "8f565d72-b454-4167-8350-2f176bf867ae",
+      "rawTextureUuid": "9b89376f-1d37-48ca-9a77-c9a84cd4f67e",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -5,
+      "offsetY": 229.5,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 502,
+      "height": 565,
+      "rawWidth": 512,
+      "rawHeight": 1024,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

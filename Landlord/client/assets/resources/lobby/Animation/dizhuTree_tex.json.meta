@@ -1,0 +1,7 @@
+{
+  "ver": "1.0.0",
+  "uuid": "7edb5433-9736-44d4-9881-6cf2223a398f",
+  "atlasJson": "{\"width\":128,\"imagePath\":\"dizhuTree_tex.png\",\"name\":\"dizhuTree\",\"SubTexture\":[{\"width\":48,\"y\":284,\"height\":144,\"name\":\"dt_25\",\"x\":1},{\"width\":37,\"y\":284,\"height\":83,\"name\":\"dt_26\",\"x\":52},{\"width\":98,\"y\":1,\"height\":280,\"name\":\"dt_27\",\"x\":1}],\"height\":512}",
+  "texture": "cd0b277f-39e4-4ff4-acec-8b95103b0dda",
+  "subMetas": {}
+}

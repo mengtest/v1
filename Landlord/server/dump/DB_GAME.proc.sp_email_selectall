@@ -1,0 +1,6 @@
+CREATE PROCEDURE `sp_email_selectall`(IN `_receiveid` BIGINT(20))
+    COMMENT '查找所有邮件'
+BEGIN
+	delete from t_email where receiveid = _receiveid and unix_timestamp() >= deletetime;
+	select id,theme,content,gold,flag,createtime from t_email where receiveid = _receiveid;
+END

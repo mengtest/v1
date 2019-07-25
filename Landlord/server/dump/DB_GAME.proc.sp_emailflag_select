@@ -1,0 +1,5 @@
+CREATE PROCEDURE `sp_emailflag_select`(IN `_receiveid` BIGINT(20))
+    COMMENT '查找所有邮件'
+BEGIN
+	select idx from t_emailflag where receiveid = _receiveid;
+END

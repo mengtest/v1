@@ -1,0 +1,26 @@
+return {
+	[1]={
+		maxwinsyslimit=5000,
+		roomid=1,
+		supriseratio=20,
+		supriseweight={5000,2000,1200,1000,500,300}
+	},
+	[2]={
+		maxwinsyslimit=5000,
+		roomid=2,
+		supriseratio=20,
+		supriseweight={5000,2000,1200,1000,500,300}
+	},
+	[3]={
+		maxwinsyslimit=5000,
+		roomid=3,
+		supriseratio=20,
+		supriseweight={5000,2000,1200,1000,500,300}
+	},
+	[4]={
+		maxwinsyslimit=5000,
+		roomid=4,
+		supriseratio=20,
+		supriseweight={5000,2000,1200,1000,500,300}
+	}
+}

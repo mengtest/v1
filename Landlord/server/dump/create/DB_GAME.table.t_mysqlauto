@@ -1,0 +1,4 @@
+CREATE TABLE `t_mysqlauto` (
+  `name` varchar(50) NOT NULL DEFAULT '',
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8

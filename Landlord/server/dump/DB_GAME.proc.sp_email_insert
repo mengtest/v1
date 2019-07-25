@@ -1,0 +1,36 @@
+CREATE PROCEDURE `sp_email_insert`(IN `_emailmax` INT,IN `_id` BIGINT(20),IN `_idx` INT(11),IN `_receiveid` BIGINT(20),IN `_theme` VARCHAR(64),IN `_content` TEXT,IN `_gold` BIGINT(20),IN `_flag` INT(11),IN `_expiretime` INT)
+    MODIFIES SQL DATA
+    COMMENT '添加邮件'
+main:begin
+	declare __count int default 0;
+	declare __ret int default 0;
+	declare __idx int default 0;
+	declare __createtime int default unix_timestamp();
+	declare __deletetime int default __createtime + _expiretime * 3600 * 24;
+
+	select count(*) into __count from t_player where rid = _receiveid;
+	if __count = 0 then
+		select 1;
+	else
+		-- 邮件数量校验
+		call sp_email_deletemax(_receiveid,0,_emailmax,__ret);
+		if __ret > 0 then
+			select 2;
+		else
+			-- 系统邮件校验
+			if _idx > 0 then
+				select count(*) into __idx from t_emailflag where receiveid = _receiveid and idx = _idx;
+				if __idx > 0 then
+					select 3;
+					leave main;
+				end if;
+				-- 增加玩家系统邮件标记
+				insert t_emailflag(receiveid,idx,deletetime) values(_receiveid,_idx,__deletetime);
+			end if;
+			-- 增加邮件
+			insert t_email(id,idx,receiveid,theme,content,gold,flag,createtime,deletetime)
+							values(_id,_idx,_receiveid,_theme,_content,_gold,_flag,__createtime,__deletetime);
+			select 0;
+		end if;
+	end if;
+end

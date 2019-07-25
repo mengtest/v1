@@ -1,0 +1,17 @@
+CREATE PROCEDURE `sp_emailsys_insert`(IN `_theme` VARCHAR(64),IN `_content` TEXT,IN `_gold` BIGINT(20),IN `_createtime` INT(11),IN `_deletetime` INT(11),IN `_type` INT,IN `_args` TEXT)
+    MODIFIES SQL DATA
+    COMMENT '添加邮件'
+begin
+	declare __createtime int default _createtime;
+	declare __deletetime int default _deletetime;
+	if _createtime = 0 then 
+		set __createtime = unix_timestamp();
+	end if;
+	if _deletetime = 0 then 
+		set __deletetime = unix_timestamp();
+	end if;	
+	insert t_emailsys(theme,content,gold,createtime,deletetime,type,args)
+					values(_theme,_content,_gold,__createtime,__deletetime,_type,_args);
+	select count(*) from t_emailsys;
+	select idx,theme,content,gold,createtime,deletetime,type,args from t_emailsys order by idx desc limit 1;
+end

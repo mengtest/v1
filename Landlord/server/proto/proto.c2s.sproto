@@ -1,0 +1,270 @@
+.package {
+	type 0 : integer
+	session 1 : integer
+	ud 2 : string
+}
+
+ping 1 {
+	request {
+
+	}
+	response {
+
+	}
+}
+
+#----------------------------------登陆游戏------------------------------
+
+#服务器信息
+.server_info {
+	sid 0 : integer
+	ip 1 : string
+	port 2 : integer
+	status 3 : integer
+}
+
+#登陆
+signin 2 {
+	request {
+		token 0 : string
+		device 1 : string
+		imei 2 : string
+		username 3 : string
+		password 4 : string
+	}
+	response {
+		e 0 : integer
+		uid 1: string
+		token 2 : string
+		auth 3 : integer
+		servers 4 : server_info
+	}
+}
+
+#----------------------------------进入游戏------------------------------
+.role_list {
+	rid 0 : integer
+	rname 1 : string
+	last 2 : integer
+}
+
+#登陆游戏
+game_auth 10 {
+	request {
+		uid 0 : string
+		token 1 : string
+		ti 2 : string
+		auth 3 : integer
+	}
+	response {
+		e 0 : integer
+		roles 1 : *role_list
+	}
+}
+
+#登陆游戏
+login 11 {
+	request {
+		rid 0 : integer
+		mini 1 : integer
+	}
+	response {
+		e 0 : integer
+	}
+}
+
+#创建角色
+create_role 12 {
+	request {
+		rname 0 : string
+		job 1 : integer
+	}
+	response {
+		e 0 : integer
+	}
+}
+
+#兑换码
+redeem 13 {
+	request {
+		code 0 : string
+	}
+	response {
+		e 0 : integer
+	}
+}
+
+#获取角色名
+get_name 14 {
+	request {
+		rid 0 : integer			# 角色id
+	}
+	response {
+		rname 0 : string		# 返回角色名，没找到返回空字符串''
+	}
+}
+
+#----------------------------------保险箱 20-29 ----------------------
+# 输入密码打开
+safe_open 20 {
+	request {
+		password 0 : string		#密码
+	}
+	response {
+		e 0 : integer
+	}
+}
+# 修改密码
+safe_password 21 {
+	request {
+		old 0 : string			#旧密码
+		new 1 : string			#新密码
+	}
+	response {
+		e 0 : integer
+	}
+}
+# 存钱
+safe_save 22 {
+	request {
+		amount 0 : integer		#数量
+	}
+	response {
+		e 0 : integer
+	}
+}
+# 取钱
+safe_draw 23 {
+	request {
+		amount 0 : integer		#数量
+	}
+	response {
+		e 0 : integer
+	}
+}
+# 汇款
+safe_transfer 24 {
+	request {
+		amount 0 : integer		#数量
+		tid	1 : integer			#目标id
+	}
+	response {
+		e 0 : integer
+	}
+}
+
+#-----------------------------邮件 80-89 begin-----------------------
+#邮件操作
+email_opt 80 {
+	request {
+		id 0 : integer			#邮件id
+		opt 1 : integer			#操作码1=读，2=单取附件，3=删除指定，4=获取所有附件，5=删除所有已读和已领取
+	}
+	response {
+		e 0 : integer
+	}
+}
+#----------------------------------游戏逻辑---------------------
+
+#进入游戏桌
+enter_game 90 {
+	request {
+		gameid 0 : string		#游戏id
+		roomid 1 : integer		#房间id
+		deskid 2 : integer		#桌子id
+		deskpos 3 : integer		#位子id(有就填)
+	}
+	response {
+		e 0 : integer
+	}
+}
+
+#退出游戏桌
+exit_game 91 {
+	request {
+
+	}
+	response {
+		e 0 : integer
+	}
+}
+
+#游戏表情
+emote_game 92 {
+	request {
+		id 0 : integer			# 表情id
+		tid 1 : integer			# 目标id
+	}
+	response {
+		e 0 : integer
+	}
+}
+
+#-----------------------------斗地主-----------------------
+#开始游戏
+ddz_play 200 {
+	request {
+		show 0 : integer #明牌开始为1，不是明牌为0，发牌过程中明牌为2
+	}
+	response {
+		e 0 : integer
+	}
+}
+
+#发牌过程明牌
+ddz_deal_show 201 {
+	request {
+	}
+	response {
+		e 0 : integer
+	}
+}
+
+#叫地主
+ddz_call 202 {
+	request {
+		call 0 : integer	#1叫 0为不叫
+	}
+	response {
+		e 0 : integer
+	}
+}
+
+#抢地主
+ddz_grab 203 {
+	request {
+		grab 0 : integer	#1抢 0为不抢
+	}
+	response {
+		e 0 : integer
+	}
+}
+
+#加倍
+ddz_multiple 204 {
+	request {
+		multiple 0 : integer	#0-2 0不加倍 1加倍 2超级加倍
+	}
+	response {
+		e 0 : integer
+	}
+}
+
+#出牌
+ddz_throw 205 {
+	request {
+		cards 0 : *integer
+	}
+	response {
+		e 0 : integer
+	}
+}
+
+# 下一局
+ddz_more 206 {
+	request {
+	}
+	response {
+		e 0 : integer
+	}
+}

@@ -1,0 +1,28 @@
+CREATE PROCEDURE `sp_email_deletemax`(IN `_receiveid` BIGINT(20),IN `_sendid` BIGINT(20),IN `_emailmax` INT(11),OUT `_ret` INT(11))
+    COMMENT '删除最大邮件'
+BEGIN
+	declare __emailcnt int default 0;
+	set _ret = 0;
+	-- 先删除过期邮件
+	delete from t_email where receiveid = _receiveid and unix_timestamp() > deletetime;
+	-- 邮件数量校验
+	select count(*) into __emailcnt from t_email where receiveid = _receiveid;
+	if _emailmax > 0 and __emailcnt >= _emailmax then
+		if _sendid = 0 then
+			-- 删除已读的空附件邮件
+			delete from t_email where receiveid = _receiveid and flag = 2;
+			set __emailcnt = __emailcnt - row_count();
+			if __emailcnt >= _emailmax then
+				-- 删除最早一封未读没有附件的邮件
+				delete t_email from t_email,(select id,min(deletetime) from t_email where receiveid = _receiveid and flag = 0 and gold=0) as a where t_email.id = a.id;
+				set __emailcnt = __emailcnt - row_count();
+				if __emailcnt >= _emailmax then
+					-- 删除最早一封有附件的邮件
+					delete t_email from t_email,(select id,min(deletetime) from t_email where receiveid = _receiveid) as b where t_email.id = b.id;
+				end if;	
+			end if;
+		else
+			set _ret = 1;
+		end if;	
+	end if;
+END
